@@ -17,7 +17,7 @@ export default class Main extends Component {
 
   identifyStart = () => {
     this.startRecording();
-    setTimeout(this.stopRecording, 8000);
+    setTimeout(this.stopRecording, 3000);
   };
 
   startRecording = () => {
@@ -39,7 +39,7 @@ export default class Main extends Component {
     audio.play();
   };
 
-  getTrackInfo = recordedBlob => {
+  /*getTrackInfo = recordedBlob => {
     const proxy = "https://cors-anywhere.herokuapp.com/";
     var bodyFormData = new FormData();
     bodyFormData.append("file", recordedBlob.blob);
@@ -67,11 +67,11 @@ export default class Main extends Component {
       .catch(function(error) {
         console.log(error);
       });
-  };
+  };*/
 
   //OFFLINE version not to waste requests
 
-  /*getTrackInfo = recordedBlob => {
+  getTrackInfo = recordedBlob => {
     this.setState({
       trackInfo: {
         artist: "Eric Johnson",
@@ -83,7 +83,7 @@ export default class Main extends Component {
       loading: false,
       success: true
     });
-  };*/
+  };
 
   onStop = recordedBlob => {
     this.setState({ audioBlobURL: recordedBlob.blobURL });
@@ -103,8 +103,8 @@ export default class Main extends Component {
 
         {this.state.loading === true ? (
           <div>
-            <div className="ui active centered inline loader loading-spinner"></div>
-            <p>Identifying song</p>
+            <div className="ui active centered inline loader big loading-spinner"></div>
+            <h2>Identifying song..</h2>
           </div>
         ) : null}
         {this.state.success === true ? (

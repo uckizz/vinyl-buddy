@@ -14,9 +14,6 @@
 .audio-recorder {
   display: none;
 }
-.cover-image {
-  border: 2px solid black;
-}
 
 .main-container {
   height: 100vh;
@@ -25,6 +22,15 @@
   align-items: center;
   flex-direction: column;
 }
-.track-info {
-  margin-bottom: 10px;
+
+.cover-image {
+  height: 50%;
+}
+.wrong-info {
+  font-size: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.wrong-info:hover {
+  opacity: 0.5;
 }
