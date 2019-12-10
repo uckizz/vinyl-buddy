@@ -10,13 +10,14 @@ export default class Main extends Component {
       record: false,
       audioBlobURL: "",
       trackInfo: {},
-      success: false
+      success: false,
+      loading: false
     };
   }
 
   identifyStart = () => {
     this.startRecording();
-    setTimeout(this.stopRecording, 4000);
+    setTimeout(this.stopRecording, 8000);
   };
 
   startRecording = () => {
@@ -29,8 +30,7 @@ export default class Main extends Component {
 
   stopRecording = () => {
     this.setState({
-      record: false,
-      loading: false
+      record: false
     });
   };
 
@@ -55,6 +55,7 @@ export default class Main extends Component {
         console.log(response);
         this.setState({
           success: true,
+          loading: false,
           trackInfo: {
             artist: response.data.result.artist,
             song: response.data.result.title,
@@ -79,6 +80,7 @@ export default class Main extends Component {
         cover:
           "https://cdns-images.dzcdn.net/images/cover/d848aaa3b9e7ac6b6930bda28916310f/250x250-000000-80-0-0.jpg"
       },
+      loading: false,
       success: true
     });
   };
@@ -101,16 +103,21 @@ export default class Main extends Component {
 
         {this.state.loading === true ? (
           <div>
-            <div className="ui active centered inline loader"></div>
+            <div className="ui active centered inline loader loading-spinner"></div>
             <p>Identifying song</p>
           </div>
         ) : null}
         {this.state.success === true ? (
           <TrackInfo trackInfo={this.state.trackInfo} />
         ) : null}
-        <button class="ui black basic button" onClick={this.identifyStart}>
-          Identify song
-        </button>
+        {this.state.loading === false ? (
+          <button
+            className="ui black basic button identify-button"
+            onClick={this.identifyStart}
+          >
+            Start
+          </button>
+        ) : null}
       </div>
     );
   }

@@ -3,6 +3,8 @@ body {
   background: linear-gradient(to bottom, #6699ff 0%, #ff99cc 100%);
 }
 .App {
+  display: flex;
+  justify-content: space-around;
   text-align: center;
 }
 .audio-recorder {
@@ -10,4 +12,10 @@ body {
 }
 .cover-image {
   border: 2px solid black;
+}
+.track-info {
+  margin-top: 50px;
+}
+.loading-spinner {
+  margin-top: 20px;
 }
