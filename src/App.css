@@ -1,11 +1,15 @@
-body {
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(to bottom, #6699ff 0%, #ff99cc 100%);
-}
 .App {
-  display: flex;
-  justify-content: space-around;
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: white;
+  /*background: linear-gradient(to bottom, #6699ff 0%, #ff99cc 100%);*/
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 92, 121, 1) 39%,
+    rgba(0, 212, 255, 1) 100%
+  );
 }
 .audio-recorder {
   display: none;
@@ -13,9 +17,14 @@ body {
 .cover-image {
   border: 2px solid black;
 }
-.track-info {
-  margin-top: 50px;
+
+.main-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
-.loading-spinner {
-  margin-top: 20px;
+.track-info {
+  margin-bottom: 10px;
 }
