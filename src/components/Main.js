@@ -54,10 +54,13 @@ export default class Main extends Component {
       .then(response => {
         console.log(response);
         this.setState({
-          artist: response.data.result.artist,
-          song: response.data.result.title,
-          album: response.data.result.album,
-          cover: response.data.result.deezer.album.cover_medium
+          success: true,
+          trackInfo: {
+            artist: response.data.result.artist,
+            song: response.data.result.title,
+            album: response.data.result.album,
+            cover: response.data.result.deezer.album.cover_medium
+          }
         });
       })
       .catch(function(error) {
@@ -66,6 +69,7 @@ export default class Main extends Component {
   };*/
 
   //OFFLINE version not to waste requests
+
   getTrackInfo = recordedBlob => {
     this.setState({
       trackInfo: {
@@ -94,9 +98,7 @@ export default class Main extends Component {
           onData={this.onData}
           mimeType="audio/mp3"
         />
-        <button onClick={this.identifyStart} type="button">
-          Start
-        </button>
+
         {this.state.loading === true ? (
           <div>
             <div className="ui active centered inline loader"></div>
@@ -106,6 +108,9 @@ export default class Main extends Component {
         {this.state.success === true ? (
           <TrackInfo trackInfo={this.state.trackInfo} />
         ) : null}
+        <button class="ui black basic button" onClick={this.identifyStart}>
+          Identify song
+        </button>
       </div>
     );
   }

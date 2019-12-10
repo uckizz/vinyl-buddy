@@ -1,7 +1,13 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #6699ff 0%, #ff99cc 100%);
+}
 .App {
   text-align: center;
-  font-family: "Poppins", sans-serif;
 }
 .audio-recorder {
   display: none;
+}
+.cover-image {
+  border: 2px solid black;
 }
