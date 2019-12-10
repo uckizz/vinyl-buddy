@@ -11,6 +11,9 @@
     rgba(0, 212, 255, 1) 100%
   );
 }
+.App a {
+  color: lightgrey;
+}
 .audio-recorder {
   display: none;
 }
@@ -20,11 +23,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+}
+.main-trackinfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.cover-image {
+  height: 40%;
+  border: 2px solid black;
 }
 
-.cover-image {
-  height: 50%;
+.site-logo {
+  height: 40%;
 }
 .wrong-info {
   font-size: 10px;
@@ -33,4 +44,32 @@
 }
 .wrong-info:hover {
   opacity: 0.5;
+}
+
+.info-wikipedia {
+  width: 33.3333%;
+  padding: 10px;
+  border-radius: 15px;
+  background: rgba(100, 10, 10, 0.2);
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.currently-spinning {
+  width: 33.3333%;
+  padding: 10px;
+  border-radius: 15px;
+  background: rgba(100, 10, 10, 0.2);
+  margin-right: 20px;
+}
+
+.info-discogs {
+  width: 33.3333%;
+  padding: 10px;
+  border-radius: 15px;
+  background: rgba(100, 10, 10, 0.2);
+  margin-right: 20px;
+}
+.info-discogs ul {
+  list-style: none;
 }

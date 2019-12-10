@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { ReactMic } from "@cleandersonlobo/react-mic";
 import TrackInfo from "./TrackInfo";
+import CurrentlySpinning from "./CurrentlySpinning";
 
 export default class Main extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class Main extends Component {
 
   identifyStart = () => {
     this.startRecording();
-    setTimeout(this.stopRecording, 3000);
+    setTimeout(this.stopRecording, 1000);
   };
 
   startRecording = () => {
@@ -110,7 +111,7 @@ export default class Main extends Component {
         {this.state.success === true ? (
           <TrackInfo trackInfo={this.state.trackInfo} />
         ) : null}
-        {this.state.loading === false ? (
+        {this.state.loading === false && this.state.success === false ? (
           <button
             className="ui inverted basic button identify-button"
             onClick={this.identifyStart}
