@@ -39,7 +39,7 @@ export default class Main extends Component {
     audio.play();
   };
 
-  /*getTrackInfo = recordedBlob => {
+  getTrackInfo = recordedBlob => {
     const proxy = "https://cors-anywhere.herokuapp.com/";
     var bodyFormData = new FormData();
     bodyFormData.append("file", recordedBlob.blob);
@@ -67,11 +67,11 @@ export default class Main extends Component {
       .catch(function(error) {
         console.log(error);
       });
-  };*/
+  };
 
   //OFFLINE version not to waste requests
 
-  getTrackInfo = recordedBlob => {
+  /*getTrackInfo = recordedBlob => {
     this.setState({
       trackInfo: {
         artist: "Eric Johnson",
@@ -83,7 +83,7 @@ export default class Main extends Component {
       loading: false,
       success: true
     });
-  };
+  };*/
 
   onStop = recordedBlob => {
     this.setState({ audioBlobURL: recordedBlob.blobURL });
@@ -92,7 +92,7 @@ export default class Main extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main-container">
         <ReactMic
           className="audio-recorder"
           record={this.state.record}
@@ -112,7 +112,7 @@ export default class Main extends Component {
         ) : null}
         {this.state.loading === false ? (
           <button
-            className="ui black basic button identify-button"
+            className="ui inverted basic button identify-button"
             onClick={this.identifyStart}
           >
             Start
