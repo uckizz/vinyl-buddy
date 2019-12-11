@@ -4,6 +4,7 @@ import InfoWikipedia from "./InfoWikipedia";
 import InfoDiscogs from "./InfoDiscogs";
 
 export default function TrackInfo(props) {
+  console.log("Trackinfo props");
   console.log(props);
   return (
     <div className="main-trackinfo">

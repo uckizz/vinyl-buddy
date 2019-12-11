@@ -36,6 +36,8 @@
 
 .site-logo {
   height: 40%;
+  opacity: 0.6;
+  filter: grayscale(1);
 }
 .wrong-info {
   font-size: 10px;
