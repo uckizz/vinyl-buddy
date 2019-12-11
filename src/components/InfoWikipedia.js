@@ -1,4 +1,5 @@
 import React from "react";
+import Parser from "html-react-parser";
 
 export default function InfoWikipedia(props) {
   return (
@@ -8,14 +9,14 @@ export default function InfoWikipedia(props) {
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Wikipedia_Logo_1.0.png/220px-Wikipedia_Logo_1.0.png"
         alt="wiki-logo"
       ></img>
-      <p>
-        <strong>Eric Johnson (born August 17, 1954)</strong> is an American
-        guitarist, vocalist, composer, and multi-instrumentalist. His 1990 album
-        Ah Via Musicom was certified platinum by the RIAA, and the single
-        "Cliffs of Dover" won the Grammy Award for Best Rock Instrumental
-        Performance.
-      </p>
-      <a href="#">Find out more on Wikipedia</a>
+      {props.wikiInfo === "" ? (
+        <div className="ui active centered inline loader massive loading-spinner center"></div>
+      ) : (
+        <div>
+          <p>{Parser(props.wikiInfo)}</p>
+          <a href="#">Find out more on Wikipedia</a>
+        </div>
+      )}
     </div>
   );
 }

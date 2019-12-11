@@ -1,8 +1,6 @@
 import React from "react";
 
 export default function CurrentlySpinning(props) {
-  console.log("CurrentlySpinning props");
-  console.log(props);
   return (
     <div className="currently-spinning">
       <img
