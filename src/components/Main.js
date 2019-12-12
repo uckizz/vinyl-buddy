@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { ReactMic } from "@cleandersonlobo/react-mic";
 import TrackInfo from "./TrackInfo";
-import CurrentlySpinning from "./CurrentlySpinning";
 
 export default class Main extends Component {
   constructor(props) {
@@ -12,6 +11,7 @@ export default class Main extends Component {
       audioBlobURL: "",
       trackInfo: {},
       wikiInfo: "",
+      discogsInfo: [],
       success: false,
       loading: false,
       nullResult: false
@@ -21,7 +21,7 @@ export default class Main extends Component {
   identifyStart = () => {
     this.startRecording();
     this.setState({ nullResult: false });
-    setTimeout(this.stopRecording, 4000);
+    setTimeout(this.stopRecording, 2000);
   };
 
   startRecording = () => {
@@ -43,7 +43,7 @@ export default class Main extends Component {
     audio.play();
   };
 
-  getTrackInfo = async recordedBlob => {
+  /*getTrackInfo = async recordedBlob => {
     const proxy = "https://cors-anywhere.herokuapp.com/";
     var bodyFormData = new FormData();
     bodyFormData.append("file", recordedBlob.blob);
@@ -76,31 +76,35 @@ export default class Main extends Component {
       .catch(function(error) {
         console.log(error);
       });
-  };
+  };*/
 
   //OFFLINE version not to waste requests
 
-  /*getTrackInfo = recordedBlob => {
+  getTrackInfo = () => {
     this.setState({
       trackInfo: {
-        artist: "Eric Johnson",
-        song: "Bristol Shore",
-        album: "Live Austin 84",
+        artist: "Elliott Smith",
+        song: "Alameda",
+        album: "Either/Or",
         cover:
-          "https://cdns-images.dzcdn.net/images/cover/d848aaa3b9e7ac6b6930bda28916310f/250x250-000000-80-0-0.jpg"
+          "https://upload.wikimedia.org/wikipedia/en/f/fd/Elliottsmitheitheror55.jpg"
       },
       loading: false,
       success: true
     });
-  };*/
+    this.getWikiInfo();
+    this.getDiscogsInfo();
+  };
 
   getWikiInfo = async () => {
     const proxy = "https://cors-anywhere.herokuapp.com/";
-    let searchString = this.state.trackInfo.artist.replace(" ", "%20");
-    console.log(searchString);
+    let artist = this.state.trackInfo.artist.replace(" ", "%20");
+    let album = this.state.trackInfo.album.replace(" ", "%20");
     await axios
       .get(
-        `${proxy}https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${searchString}&format=json`
+        `${proxy}https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${artist +
+          "%20" +
+          album}&format=json`
       )
       .then(response => {
         console.log("wikinresp");
@@ -110,6 +114,34 @@ export default class Main extends Component {
       .catch(error => {
         //console.log(error);
       });
+  };
+
+  getDiscogsInfo = async () => {
+    let artist = this.state.trackInfo.artist;
+    let album = this.state.trackInfo.album;
+    const DISCOGS_API_SECRET = "ouSzglIWzBxYEthxupquwnRWFaQsGlYP";
+    const DISCOGS_API_KEY = "UyWkRaLLrlgBTSFnXIKY";
+    const proxy = "https://cors-anywhere.herokuapp.com/";
+    await axios
+      .get(
+        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${DISCOGS_API_SECRET}&key=${DISCOGS_API_KEY}&per_page=5&page=1`,
+        {
+          headers: { "x-requested-with": true, XMLHttpRequest: true }
+        }
+      )
+      .then(response => {
+        this.setState({
+          discogsInfo: response.data.results
+        });
+      })
+      .catch(error => {
+        console.log("discogs fel");
+        console.log(error);
+      });
+  };
+
+  refresh = () => {
+    this.identifyStart();
   };
 
   onStop = recordedBlob => {
@@ -148,6 +180,8 @@ export default class Main extends Component {
           <TrackInfo
             trackInfo={this.state.trackInfo}
             wikiInfo={this.state.wikiInfo}
+            discogsInfo={this.state.discogsInfo}
+            refresh={this.refresh}
           />
         ) : null}
         {this.state.loading === false &&

@@ -30,12 +30,24 @@
   justify-content: center;
 }
 .cover-image {
-  height: 40%;
+  height: 50%;
   border: 2px solid black;
+  border-radius: 150px;
+  animation: spin 7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.site-logo {
-  height: 40%;
+.wiki-logo {
+  height: 20%;
+  opacity: 0.6;
+  filter: grayscale(1);
+}
+.discogs-logo {
+  height: 5%;
   opacity: 0.6;
   filter: grayscale(1);
 }
@@ -74,4 +86,17 @@
 }
 .info-discogs ul {
   list-style: none;
+}
+.discogs-list-item img {
+  width: 50%;
+  border: 1px solid black;
+}
+.discogs-list-item li {
+  font-size: 8pt;
+  text-align: left;
+}
+.discogs-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
 }
