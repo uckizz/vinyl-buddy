@@ -3,6 +3,7 @@ import React from "react";
 export default function CurrentlySpinning(props) {
   return (
     <div className="currently-spinning">
+      <h2>Currently Spinning</h2>
       <img
         className="cover-image"
         src={props.trackInfo.cover}

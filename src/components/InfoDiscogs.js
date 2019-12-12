@@ -1,20 +1,30 @@
 import React from "react";
+import DiscogsListItem from "./DiscogsListItem";
 
 export default function InfoDiscogs(props) {
+  const discogsResult = props.discogsInfo;
+
   return (
     <div className="info-discogs">
       <img
-        className="site-logo"
-        src="https://medialen.files.wordpress.com/2012/07/discogs.png"
-        alt="site-logo"
+        className="discogs-logo"
+        src="https://a.discogs.com/6c7c7083538b032c3e9ef32acbd53fb23a88d9d0/images/discogs-white.png"
+        alt="discogs-logo"
       ></img>
-      <p>New West Records</p>
-      <p>Live From Austin TX</p>
-      <p>CD, Album, Digipack</p>
-      <p>US</p>
-      <p>2010</p>
-      <p>Rock, Blues</p>
-      <a href="#">Find out more on Discogs</a>
+      <p>Browse Discogs Releases</p>
+      {discogsResult.map(item => (
+        <DiscogsListItem release={item} key={item.id} />
+      ))}
+      <div class="ui buttons">
+        <button class="ui labeled icon button">
+          <i class="left chevron icon"></i>
+          Previous
+        </button>
+        <button class="ui right labeled icon button">
+          Next
+          <i class="right chevron icon"></i>
+        </button>
+      </div>
     </div>
   );
 }
