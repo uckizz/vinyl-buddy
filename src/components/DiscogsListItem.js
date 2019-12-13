@@ -1,8 +1,6 @@
 import React from "react";
 
 export default function DiscogsListItem(props) {
-  console.log("list item props");
-  console.log(props);
   const discogsLink = "https://www.discogs.com/" + props.release.uri;
   return (
     <div className="discogs-list-item">

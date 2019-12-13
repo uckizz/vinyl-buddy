@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import CurrentlySpinning from "./CurrentlySpinning";
 import InfoWikipedia from "./InfoWikipedia";
 import InfoDiscogs from "./InfoDiscogs";
 
 export default function TrackInfo(props) {
-  console.log("Trackinfo props");
-  console.log(props);
-
   return (
     <div>
       <div className="main-trackinfo">
