@@ -15,14 +15,17 @@ export default function InfoDiscogs(props) {
       {discogsResult.map(item => (
         <DiscogsListItem release={item} key={item.id} />
       ))}
-      <div class="ui buttons">
-        <button class="ui labeled icon button">
-          <i class="left chevron icon"></i>
+      <div className="ui buttons">
+        <button className="ui labeled icon button" onClick={props.prevDiscogs}>
+          <i className="left chevron icon"></i>
           Previous
         </button>
-        <button class="ui right labeled icon button">
+        <button
+          className="ui right labeled icon button"
+          onClick={props.nextDiscogs}
+        >
           Next
-          <i class="right chevron icon"></i>
+          <i className="right chevron icon"></i>
         </button>
       </div>
     </div>

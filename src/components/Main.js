@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { ReactMic } from "@cleandersonlobo/react-mic";
 import TrackInfo from "./TrackInfo";
+import { TRACKS } from "../FakeBackend";
 
 export default class Main extends Component {
   constructor(props) {
@@ -14,7 +15,9 @@ export default class Main extends Component {
       discogsInfo: [],
       success: false,
       loading: false,
-      nullResult: false
+      nullResult: false,
+      discogsPages: null,
+      currentDiscogsPage: 1
     };
   }
 
@@ -36,6 +39,11 @@ export default class Main extends Component {
     this.setState({
       record: false
     });
+  };
+
+  onStop = recordedBlob => {
+    this.setState({ audioBlobURL: recordedBlob.blobURL });
+    this.getTrackInfo(recordedBlob);
   };
 
   playRecording = () => {
@@ -81,14 +89,9 @@ export default class Main extends Component {
   //OFFLINE version not to waste requests
 
   getTrackInfo = () => {
+    let newTrack = Math.floor(Math.random() * 5) + 1;
     this.setState({
-      trackInfo: {
-        artist: "Elliott Smith",
-        song: "Alameda",
-        album: "Either/Or",
-        cover:
-          "https://upload.wikimedia.org/wikipedia/en/f/fd/Elliottsmitheitheror55.jpg"
-      },
+      trackInfo: TRACKS[newTrack - 1],
       loading: false,
       success: true
     });
@@ -107,8 +110,8 @@ export default class Main extends Component {
           album}&format=json`
       )
       .then(response => {
-        console.log("wikinresp");
-        console.log(response);
+        //console.log("wikinresp");
+        //console.log(response);
         this.setState({ wikiInfo: response.data.query.search[0].snippet });
       })
       .catch(error => {
@@ -116,7 +119,7 @@ export default class Main extends Component {
       });
   };
 
-  getDiscogsInfo = async () => {
+  getDiscogsInfo = async currentPage => {
     let artist = this.state.trackInfo.artist;
     let album = this.state.trackInfo.album;
     const DISCOGS_API_SECRET = "ouSzglIWzBxYEthxupquwnRWFaQsGlYP";
@@ -124,18 +127,20 @@ export default class Main extends Component {
     const proxy = "https://cors-anywhere.herokuapp.com/";
     await axios
       .get(
-        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${DISCOGS_API_SECRET}&key=${DISCOGS_API_KEY}&per_page=5&page=1`,
+        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${DISCOGS_API_SECRET}&key=${DISCOGS_API_KEY}&per_page=5&page=${currentPage}`,
         {
           headers: { "x-requested-with": true, XMLHttpRequest: true }
         }
       )
       .then(response => {
+        console.log(response.data);
         this.setState({
-          discogsInfo: response.data.results
+          discogsInfo: response.data.results,
+          discogsPages: response.data.pagination.pages
         });
       })
       .catch(error => {
-        console.log("discogs fel");
+        //console.log("discogs fel");
         console.log(error);
       });
   };
@@ -144,9 +149,24 @@ export default class Main extends Component {
     this.identifyStart();
   };
 
-  onStop = recordedBlob => {
-    this.setState({ audioBlobURL: recordedBlob.blobURL });
-    this.getTrackInfo(recordedBlob);
+  prevDiscogs = () => {
+    let newPage = this.state.currentDiscogsPage;
+    if (newPage > 1) {
+      newPage--;
+      this.getDiscogsInfo(newPage);
+      this.setState({ currentDiscogsPage: newPage });
+    } else {
+      this.setState({ currentDiscogsPage: 1 });
+    }
+  };
+
+  nextDiscogs = () => {
+    let newPage = this.state.currentDiscogsPage;
+    if (newPage !== this.state.discogsPages) {
+      newPage++;
+      this.getDiscogsInfo(newPage);
+      this.setState({ currentDiscogsPage: newPage });
+    }
   };
 
   render() {
@@ -182,6 +202,8 @@ export default class Main extends Component {
             wikiInfo={this.state.wikiInfo}
             discogsInfo={this.state.discogsInfo}
             refresh={this.refresh}
+            nextDiscogs={this.nextDiscogs}
+            prevDiscogs={this.prevDiscogs}
           />
         ) : null}
         {this.state.loading === false &&
