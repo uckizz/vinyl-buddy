@@ -17,4 +17,3 @@ You need to provide valid api keys in your environment variables like this:
 REACT_APP_AUDD_API_TOKEN=
 REACT_APP_DISCOGS_API_SECRET=
 REACT_APP_DISCOGS_API_KEY=
-(https://drive.google.com/file/d/1t9Z4Z72JWWuXeB0LLfsFtR90pUzssVzJ/view?usp=sharing)
