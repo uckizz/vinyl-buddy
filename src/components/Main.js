@@ -21,7 +21,9 @@ export default class Main extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log("running");
+  }
 
   identifyStart = () => {
     this.startRecording();
