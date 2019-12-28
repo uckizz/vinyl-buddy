@@ -14,8 +14,8 @@ Discogs API - https://www.discogs.com/developers
 
 You need to provide valid api keys in your environment variables like this:
 
-*REACT_APP_AUDD_API_TOKEN=
-*REACT_APP_DISCOGS_API_SECRET=
-*REACT_APP_DISCOGS_API_KEY=
+* REACT_APP_AUDD_API_TOKEN=
+* REACT_APP_DISCOGS_API_SECRET=
+* REACT_APP_DISCOGS_API_KEY=
 
 ![alt text](https://i.postimg.cc/rstMzKZc/vinyl-buddy.png)
