@@ -7,10 +7,10 @@ Uses microphone to recognize the current song playing and then displays the albu
 
 Following libraries/API's are used:
 
-@cleandersonlobo/react-mic
-Axios
-AudD - https://audd.io/
-Discogs API - https://www.discogs.com/developers
+* @cleandersonlobo/react-mic
+* Axios
+* AudD - https://audd.io/
+* Discogs API - https://www.discogs.com/developers
 
 You need to provide valid api keys in your environment variables like this:
 
