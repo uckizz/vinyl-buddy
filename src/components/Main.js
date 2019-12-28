@@ -21,6 +21,8 @@ export default class Main extends Component {
     };
   }
 
+  componentDidMount() {}
+
   identifyStart = () => {
     this.startRecording();
     this.setState({ nullResult: false });
@@ -55,7 +57,7 @@ export default class Main extends Component {
     const proxy = "https://cors-anywhere.herokuapp.com/";
     var bodyFormData = new FormData();
     bodyFormData.append("file", recordedBlob.blob);
-    bodyFormData.set("api_token", config.AUDD_API_TOKEN);
+    bodyFormData.set("api_token", process.env.REACT_APP_AUDD_API_TOKEN);
     bodyFormData.set("return", "timecode,apple_music,deezer,spotify");
     await axios
       .post(`${proxy}https://api.audd.io/`, bodyFormData, {
@@ -120,12 +122,13 @@ export default class Main extends Component {
   };
 
   getDiscogsInfo = async currentPage => {
+    console.log("Getting discogs info");
     let artist = this.state.trackInfo.artist;
     let album = this.state.trackInfo.album;
     const proxy = "https://cors-anywhere.herokuapp.com/";
     await axios
       .get(
-        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${config.DISCOGS_API_SECRET}&key=${config.DISCOGS_API_KEY}&per_page=5&page=${currentPage}`,
+        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${process.env.REACT_APP_DISCOGS_API_SECRET}&key=${process.env.REACT_APP_DISCOGS_API_KEY}&per_page=5&page=${currentPage}`,
         {
           headers: { "x-requested-with": true, XMLHttpRequest: true }
         }
