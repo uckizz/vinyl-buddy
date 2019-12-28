@@ -24,7 +24,7 @@ export default class Main extends Component {
   identifyStart = () => {
     this.startRecording();
     this.setState({ nullResult: false });
-    setTimeout(this.stopRecording, 2000);
+    setTimeout(this.stopRecording, 5000);
   };
 
   startRecording = () => {
@@ -51,11 +51,11 @@ export default class Main extends Component {
     audio.play();
   };
 
-  /*getTrackInfo = async recordedBlob => {
+  getTrackInfo = async recordedBlob => {
     const proxy = "https://cors-anywhere.herokuapp.com/";
     var bodyFormData = new FormData();
     bodyFormData.append("file", recordedBlob.blob);
-    bodyFormData.set("api_token", "c7b206bbca0ca75fa60872fd51256a14");
+    bodyFormData.set("api_token", config.AUDD_API_TOKEN);
     bodyFormData.set("return", "timecode,apple_music,deezer,spotify");
     await axios
       .post(`${proxy}https://api.audd.io/`, bodyFormData, {
@@ -84,11 +84,11 @@ export default class Main extends Component {
       .catch(function(error) {
         console.log(error);
       });
-  };*/
+  };
 
   //OFFLINE version not to waste requests
 
-  getTrackInfo = () => {
+  /*getTrackInfo = () => {
     let newTrack = Math.floor(Math.random() * 5) + 1;
     this.setState({
       trackInfo: TRACKS[newTrack - 1],
@@ -97,7 +97,7 @@ export default class Main extends Component {
     });
     this.getWikiInfo();
     this.getDiscogsInfo();
-  };
+  };*/
 
   getWikiInfo = async () => {
     const proxy = "https://cors-anywhere.herokuapp.com/";
@@ -122,12 +122,10 @@ export default class Main extends Component {
   getDiscogsInfo = async currentPage => {
     let artist = this.state.trackInfo.artist;
     let album = this.state.trackInfo.album;
-    const DISCOGS_API_SECRET = "ouSzglIWzBxYEthxupquwnRWFaQsGlYP";
-    const DISCOGS_API_KEY = "UyWkRaLLrlgBTSFnXIKY";
     const proxy = "https://cors-anywhere.herokuapp.com/";
     await axios
       .get(
-        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${DISCOGS_API_SECRET}&key=${DISCOGS_API_KEY}&per_page=5&page=${currentPage}`,
+        `${proxy}https://api.discogs.com/database/search?artist=${artist}&release_title=${album}&secret=${config.DISCOGS_API_SECRET}&key=${config.DISCOGS_API_KEY}&per_page=5&page=${currentPage}`,
         {
           headers: { "x-requested-with": true, XMLHttpRequest: true }
         }
