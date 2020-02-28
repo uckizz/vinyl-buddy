@@ -91,8 +91,8 @@ export default class Main extends Component {
   };
 
   //OFFLINE version not to waste requests
-
-  /*getTrackInfo = () => {
+/*
+  getTrackInfo = () => {
     let newTrack = Math.floor(Math.random() * 5) + 1;
     this.setState({
       trackInfo: TRACKS[newTrack - 1],
